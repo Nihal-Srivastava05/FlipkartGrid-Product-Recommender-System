@@ -11,29 +11,46 @@ import ssl
 ########## AMAZON ##########
 
 def get_amazon_urls(productName, HEADERS = ({'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36', 'Accept-Language': 'en-US, en;q=0.5'})):
-    productName = productName.replace(' ', '+')
+    productName = productName.replace(' ', '%20')
     try:
-        webpage = requests.get("https://www.amazon.in/s?k="+productName, headers=HEADERS)
+        webpage = requests.get("https://www.flipkart.com/search?q="+productName, headers=HEADERS)
+        #print(webpage.content) no error
         soup = bs4.BeautifulSoup(webpage.content, "lxml")
     except:
         return []
-    data = soup.find_all('a', attrs={'class': 'a-link-normal'})
-    
+    data = soup.find_all("div",class_="_13oc-S")
+    #data=soup.select('#_13oc-S > a')
     links = set()
-    for d in data:
-        l = d['href']
-        regexp = re.compile(r'[a-zA-Z0-9-]*\/dp\/')
-        if(regexp.search(l)):
-            links.add("https://www.amazon.in/"+d['href'])
-    
+    for tag in data:
+        aTags = tag.find_all("div")
+        for a1 in aTags:
+            aTags1 = a1.find_all("div")
+            for a2 in aTags1:
+                af=a2.find_all("a")
+                if af != []:
+                    links.add("https://www.flipkart.com"+af[0].attrs["href"])
+            
+   
+    #print("data",data)
+    # for d in data:
+    #     #print(type(d))
+    #     l = d.attrs["href"]
+    #     #print(l)
+    #     regexp = re.compile(r'[a-zA-Z0-9-]*\/dp\/')
+    #     # if(regexp.search(l)):
+    #     #print("lalala")
+    #     links.add("https://www.flipkart.com"+d["href"])
+    #print(list(links))
     return list(links)
 
 def get_reviews_amazon(soup):
-    data_str = ""  
-    for item in soup.find_all("div", class_="reviewText"):
-        data_str = data_str + item.get_text()
-    result = data_str.split("\n")
-    result = list(filter(None, result))
+    data_str = []  
+    for item in soup.find_all("p", class_="_2-N8zT"):
+        data_str.append(item.get_text())
+        #print("lalala")
+    # result = data_str.split("\n")
+    #print(data_str)
+    result = list(filter(None, data_str))
     if(result == ['']):
         return []
     
@@ -46,25 +63,27 @@ async def get_details_amazon(session, URL, HEADERS = ({'User-Agent': 'Mozilla/5.
 
     data = {}
     try:
-        title = soup.find("span", attrs={"id":'productTitle'}).text.strip()
+        title = soup.find("span", attrs={'class':'B_NuCI'}).text.strip()
         data['title'] = title
+        #print("lalala")
     except:
         pass
 
     try:
-        price = soup.find("span", attrs={'class':'a-price-whole'}).text.strip()
+        price = soup.find('div', attrs={'class':'_30jeq3 _16Jk6d'}).text.strip()
         data['price'] = price
     except:
         pass
     
     try:
-        description = soup.find('div', attrs={'id': 'feature-bullets'}).text.strip()
+        description = soup.find('div', attrs={'class': '_1mXcCf RmoJUa'}).text.strip()
         data['description'] = description
     except:
         pass
     
     try:
         reviews = get_reviews_amazon(soup)
+        print(reviews)
         if(reviews != []):
             data['reviews'] = reviews
     except:

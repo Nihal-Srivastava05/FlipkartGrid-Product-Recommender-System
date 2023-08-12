@@ -15,7 +15,10 @@ def scrapeData():
     print(data)
     topic = data['topic']
 
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    #asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    #loop = asyncio.get_event_loop()
+    #loop.run_until_complete(asyncio.run(main_amazon(topic)))
+
     asyncio.run(main_amazon(topic))
 
     return "./Data/ScrappedData/"+topic+".json"
