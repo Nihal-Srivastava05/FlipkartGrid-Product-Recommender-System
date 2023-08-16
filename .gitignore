@@ -160,3 +160,7 @@ cython_debug/
 #.idea/
 
 scrappedData/
+flipkart_com-ecommerce_sample.csv
+amazon.csv
+ratings.csv
+models/

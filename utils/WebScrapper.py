@@ -97,7 +97,7 @@ async def main_amazon(productName):
     
     tasks = []  
     async with aiohttp.ClientSession(connector=connector) as session:
-        for url in get_amazon_urls(productName)[:25]:
+        for url in get_amazon_urls(productName):
             tasks.append(asyncio.create_task(get_details_amazon(session, url)))
 
         results = await asyncio.gather(*tasks)
