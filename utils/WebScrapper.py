@@ -8,9 +8,9 @@ import aiohttp
 import asyncio
 import ssl
 
-########## AMAZON ##########
+########## flipkart ##########
 
-def get_amazon_urls(productName, HEADERS = ({'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36', 'Accept-Language': 'en-US, en;q=0.5'})):
+def get_flipkart_urls(productName, HEADERS = ({'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36', 'Accept-Language': 'en-US, en;q=0.5'})):
     productName = productName.replace(' ', '%20')
     try:
         webpage = requests.get("https://www.flipkart.com/search?q="+productName, headers=HEADERS)
@@ -43,7 +43,7 @@ def get_amazon_urls(productName, HEADERS = ({'User-Agent': 'Mozilla/5.0 (X11; Li
     #print(list(links))
     return list(links)
 
-def get_reviews_amazon(soup):
+def get_reviews_flipkart(soup):
     data_str = []  
     for item in soup.find_all("p", class_="_2-N8zT"):
         data_str.append(item.get_text())
@@ -56,7 +56,7 @@ def get_reviews_amazon(soup):
     
     return (result)
 
-async def get_details_amazon(session, URL, HEADERS = ({'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36', 'Accept-Language': 'en-US, en;q=0.5'})):
+async def get_details_flipkart(session, URL, HEADERS = ({'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36', 'Accept-Language': 'en-US, en;q=0.5'})):
     async with session.get(URL, headers=HEADERS) as webpage:
         content = await webpage.text()
         soup = bs4.BeautifulSoup(content, "lxml")
@@ -82,7 +82,7 @@ async def get_details_amazon(session, URL, HEADERS = ({'User-Agent': 'Mozilla/5.
         pass
     
     try:
-        reviews = get_reviews_amazon(soup)
+        reviews = get_reviews_flipkart(soup)
         print(reviews)
         if(reviews != []):
             data['reviews'] = reviews
@@ -91,14 +91,14 @@ async def get_details_amazon(session, URL, HEADERS = ({'User-Agent': 'Mozilla/5.
     
     return data
 
-async def main_amazon(productName):
+async def main_flipkart(productName):
     start_time = time.time()
     connector = aiohttp.TCPConnector(limit=50, force_close=True)
     
     tasks = []  
     async with aiohttp.ClientSession(connector=connector) as session:
-        for url in get_amazon_urls(productName):
-            tasks.append(asyncio.create_task(get_details_amazon(session, url)))
+        for url in get_flipkart_urls(productName):
+            tasks.append(asyncio.create_task(get_details_flipkart(session, url)))
 
         results = await asyncio.gather(*tasks)
 
@@ -177,7 +177,7 @@ async def main_amazon(productName):
 #         tasks = []
 
 #         for url in get_asklalia_urls(productName):
-#             tasks.append(asyncio.create_task(get_details_amazon(session, url)))
+#             tasks.append(asyncio.create_task(get_details_flipkart(session, url)))
 
 #         results = await asyncio.gather(*tasks)
 
@@ -190,4 +190,4 @@ async def main_amazon(productName):
 if __name__ == "__main__":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     # asyncio.run(main_asklalia("car"))
-    # asyncio.run(main_amazon("Underwear")) 
+    # asyncio.run(main_flipkart("Underwear")) 
