@@ -4,19 +4,19 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 
 model = SentenceTransformer("distilbert-base-nli-mean-tokens")
-encoder_model = tf.keras.models.load_model('./models/encoder_64_512_50_flipkart')
+encoder_model = tf.keras.models.load_model('/Users/jaisurajbantupalli/Desktop/FlipKartGrid/FlipkartGrid-Product-Recommender-System/utils/models/encoder_64_512_50_flipkart')
 
-def get_similarity(product_1, product_2):
+def get_similarity(product_1, encoded_vectors_2):
     name_embedding_1 = np.expand_dims(model.encode(product_1[0]), axis=0).reshape(1, 1, -1)
     category_embedding_1 = np.expand_dims(model.encode(product_1[1]), axis=0).reshape(1, 1, -1)
     description_embedding_1 = np.expand_dims(model.encode(product_1[2]), axis=0).reshape(1, 1, -1)
 
-    name_embedding_2 = np.expand_dims(model.encode(product_2[0]), axis=0).reshape(1, 1, -1)
-    category_embedding_2 = np.expand_dims(model.encode(product_2[1]), axis=0).reshape(1, 1, -1)
-    description_embedding_2 = np.expand_dims(model.encode(product_2[2]), axis=0).reshape(1, 1, -1)
+    # name_embedding_2 = np.expand_dims(model.encode(product_2[0]), axis=0).reshape(1, 1, -1)
+    # category_embedding_2 = np.expand_dims(model.encode(product_2[1]), axis=0).reshape(1, 1, -1)
+    # description_embedding_2 = np.expand_dims(model.encode(product_2[2]), axis=0).reshape(1, 1, -1)
 
     encoded_vectors_1 = encoder_model.predict([name_embedding_1, category_embedding_1, description_embedding_1])
-    encoded_vectors_2 = encoder_model.predict([name_embedding_2, category_embedding_2, description_embedding_2])
+    #encoded_vectors_2 = encoder_model.predict([name_embedding_2, category_embedding_2, description_embedding_2])
 
     return cosine_similarity(encoded_vectors_1.reshape(1, -1), encoded_vectors_2.reshape(1, -1))[0]
 
