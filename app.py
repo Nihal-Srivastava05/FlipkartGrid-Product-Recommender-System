@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import pymongo
-from tqdm import tqdm
 import numpy as np
 import pandas as pd
 import json
@@ -18,9 +17,8 @@ CORS(app)
 
 @app.route('/scrapeData', methods=['POST'])
 def scrapeData():
-    data  = json.loads(request.data)
-    print(data)
-    topic = data['topic']
+    data  = request.json
+    topic = data['product']
 
     #asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     #loop = asyncio.get_event_loop()
@@ -28,7 +26,9 @@ def scrapeData():
 
     asyncio.run(main_flipkart(topic))
 
-    return "./Data/ScrappedData/"+topic+".json"
+    # return "./Data/ScrappedData/"+topic+".json"
+    res = json.load(open("./data/scrappedData/"+topic+".json", 'rb'))
+    return res
 
 @app.route('/getRec', methods=['POST'])
 def GetRec():

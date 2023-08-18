@@ -83,7 +83,7 @@ async def get_details_flipkart(session, URL, HEADERS = ({'User-Agent': 'Mozilla/
     
     try:
         reviews = get_reviews_flipkart(soup)
-        print(reviews)
+        # print(reviews)
         if(reviews != []):
             data['reviews'] = reviews
     except:
@@ -105,8 +105,6 @@ async def main_flipkart(productName):
     print(f"{(time.time() - start_time):.2f} seconds")
     results = list(filter(lambda a: a != {}, results))
     json_object = json.dumps(results, indent=4)
-    if(results == []):
-        print("Results: ", results)
     with open("./data/scrappedData/"+productName+".json", "w") as outfile:
     	outfile.write(json_object)
 
