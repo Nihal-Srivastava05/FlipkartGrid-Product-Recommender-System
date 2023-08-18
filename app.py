@@ -18,8 +18,9 @@ CORS(app)
 @app.route('/scrapeData', methods=['POST'])
 def scrapeData():
     data  = request.json
+    print(data)
     topic = data['product']
-
+    #topic="dummy"
     #asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     #loop = asyncio.get_event_loop()
     #loop.run_until_complete(asyncio.run(main_amazon(topic)))
