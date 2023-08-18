@@ -4,13 +4,15 @@ import "./Card.css";
 //import logo from "frontend/public/logo192.png";
 import { Button } from "@mui/material";
 
-const Card = () => {
+import {Favorite} from '@mui/icons-material'
+
+const Card = (props) => {
   const [index, setIndex] = useState(0);
   const [show, setShow] = useState(false);
 
   return (
     <div className="card">
-      <div className="card__heart">Fav</div>
+      <div className="card__heart"><Favorite /></div>
       <div className="card__image">
         <img
           onMouseOver={() => setShow(true)}
@@ -21,9 +23,9 @@ const Card = () => {
       </div>
       <div className="productDet">
         <div className="card__details">
-          <p className="title">adidas</p>
+          <p className="title">{props.p_name}</p>
           <p>running shoes</p>
-          <span className="span1">₹100</span>
+          <span className="span1">₹{props.price}</span>
           <span className="span2">₹200</span>
           <span className="span3">56%</span>
         </div>
