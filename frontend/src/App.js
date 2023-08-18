@@ -9,6 +9,7 @@ import Home from "./pages/home";
 import Wishlist from "./pages/wishlist";
 import Products from "./pages/Products";
 import SingleProduct from "./pages/SingleProduct";
+import Recommendation from "./pages/recommendation";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/products" element={<Products />} />
           <Route path="/singleproduct" element={<SingleProduct />} />
+          <Route path="/recommendation" element={<Recommendation />} />
 
           {/* <Route path="*" element={<NoPage />} /> */}
           {/* </Route> */}

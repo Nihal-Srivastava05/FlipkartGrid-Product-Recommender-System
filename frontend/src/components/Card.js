@@ -38,7 +38,7 @@ const Card = (props) => {
         <img
           onMouseOver={() => setShow(true)}
           onMouseLeave={() => setShow(false)}
-          src={"/images/logo192.png"}
+          src={`${props.image}`}
           alt="images"
         />
       </div>

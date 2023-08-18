@@ -89,7 +89,19 @@ async def get_details_flipkart(session, URL, HEADERS = ({'User-Agent': 'Mozilla/
     except:
         pass
     
+    try:
+        img = soup.find('div', attrs={'class': 'CXW8mj _3nMexc'})
+        print(img)
+        img1=img.find('img').attrs['src']
+        print(img1)
+        data['image'] = img1
+    except:
+        print("nope")
+        pass
+    
     return data
+
+
 
 async def main_flipkart(productName):
     start_time = time.time()
