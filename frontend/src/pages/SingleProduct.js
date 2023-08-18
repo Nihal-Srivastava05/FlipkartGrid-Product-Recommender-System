@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import styled from "styled-components";
-
+import myInitObject from "../components/global"
 const Bg1Icon = styled.img`
   position: absolute;
   height: 100%;
@@ -169,7 +169,10 @@ const NikeShoeWithImagesRoot = styled.div`
   font-family: var(--font-source-sans-pro);
 `;
 const NikeShoeWithImages = (props) => {
-  return (
+  console.log(props);
+  console.log(myInitObject)
+  //console.log(price);
+  return (  
     <NikeShoeWithImagesRoot>
       <Bg4>
         <Bg1Icon alt="" src={"/images/bg-1@2x.png"} />
@@ -184,18 +187,18 @@ const NikeShoeWithImages = (props) => {
       <Image6Icon alt="" src={"/images/logo192.png"} />
 
       <NikeShoeWithImagesChild1 alt="" src={"/images/rectangle-9.svg"} />
-      <Nike>NIKE</Nike>
+      {/* <Nike>{myInitObject.p_name}</Nike> */}
       <AirMaxAxisContainer>
         <AirMaxAxisContainer1>
-          <AirMaxAxis>{props.p_name}</AirMaxAxis>
+          <AirMaxAxis>{myInitObject.p_name}</AirMaxAxis>
           <AirMaxAxis>Special price</AirMaxAxis>
           <AirMaxAxis>&nbsp;</AirMaxAxis>
           <P>₹5,047</P>
           <P>&nbsp;</P>
-          <AirMaxAxis>₹{props.price}</AirMaxAxis>
+          <AirMaxAxis>₹{myInitObject.price}</AirMaxAxis>
           <AirMaxAxis>42% off</AirMaxAxis>
           <AirMaxAxis>&nbsp;</AirMaxAxis>
-          <AirMaxAxis>465 ratings and 39 reviews</AirMaxAxis>
+          <AirMaxAxis>{myInitObject.description}</AirMaxAxis>
         </AirMaxAxisContainer1>
       </AirMaxAxisContainer>
       <HeartContainer>

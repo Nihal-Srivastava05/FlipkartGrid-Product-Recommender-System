@@ -56,7 +56,6 @@ export default function Home() {
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {dataReceived &&
           data.map((product) => {
-            console.log(product.title);
             return (
               <Card
                 key={Math.random()}

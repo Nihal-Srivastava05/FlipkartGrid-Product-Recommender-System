@@ -3,16 +3,37 @@ import React, { useState } from "react";
 import "./Card.css";
 //import logo from "frontend/public/logo192.png";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-import {Favorite} from '@mui/icons-material'
-import NikeShoeWithImages from "../pages/SingleProduct"
+import { Favorite } from "@mui/icons-material";
+import NikeShoeWithImages from "../pages/SingleProduct";
+import { createGlobalState } from 'react-hooks-global-state';
+
+import myInitObject from './global'
+
+const initialState = { name: 0 ,price:0};
+const { useGlobalState } = createGlobalState(initialState);
 
 const Card = (props) => {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+
+  const onClickHandler = () => {
+    myInitObject.p_name = props.p_name
+    myInitObject.description = props.p_name
+    myInitObject.price = props.price
+    Object.freeze(myInitObject)
+    navigate(
+      "/singleproduct",
+      {state:{ props }}
+    );
+  };
 
   return (
     <div className="card">
-      <div className="card__heart"><Favorite /></div>
+      <div className="card__heart">
+        <Favorite />
+      </div>
       <div className="card__image">
         <img
           onMouseOver={() => setShow(true)}
@@ -30,7 +51,8 @@ const Card = (props) => {
           <span className="span3">56%</span>
         </div>
         <div className="card__size">
-          <Button onClick={<NikeShoeWithImages p_name={props.p_name} price={props.price}/>}>Open</Button>
+        <Button 
+        onClick={onClickHandler}>Open</Button>
         </div>
       </div>
     </div>
