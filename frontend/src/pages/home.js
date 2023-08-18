@@ -62,6 +62,7 @@ export default function Home() {
                 key={Math.random()}
                 p_name={product.title}
                 price={product.price}
+                image={product.image}
               />
             );
           })}

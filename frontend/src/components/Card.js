@@ -4,20 +4,22 @@ import "./Card.css";
 //import logo from "frontend/public/logo192.png";
 import { Button } from "@mui/material";
 
-import {Favorite} from '@mui/icons-material'
-import NikeShoeWithImages from "../pages/SingleProduct"
+import { Favorite } from "@mui/icons-material";
+import NikeShoeWithImages from "../pages/SingleProduct";
 
 const Card = (props) => {
   const [show, setShow] = useState(false);
 
   return (
     <div className="card">
-      <div className="card__heart"><Favorite /></div>
+      <div className="card__heart">
+        <Favorite />
+      </div>
       <div className="card__image">
         <img
           onMouseOver={() => setShow(true)}
           onMouseLeave={() => setShow(false)}
-          src={"/images/logo192.png"}
+          src={`${props.image}`}
           alt="images"
         />
       </div>
@@ -30,7 +32,13 @@ const Card = (props) => {
           <span className="span3">56%</span>
         </div>
         <div className="card__size">
-          <Button onClick={<NikeShoeWithImages p_name={props.p_name} price={props.price}/>}>Open</Button>
+          <Button
+            onClick={
+              <NikeShoeWithImages p_name={props.p_name} price={props.price} />
+            }
+          >
+            Open
+          </Button>
         </div>
       </div>
     </div>
