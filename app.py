@@ -7,14 +7,11 @@ import pandas as pd
 import json
 import asyncio
 
-from utils.WebScrapper import main_amazon
+from utils.WebScrapper import main_flipkart
 
 from utils.recommendation import get_similarity
 
-dataset= pd.read_csv("/Users/jaisurajbantupalli/Desktop/FlipKartGrid/FlipkartGrid-Product-Recommender-System/data/flipkart_com-ecommerce_sample.csv")
-
-
-
+dataset= pd.read_csv("./data/flipkart_com-ecommerce_sample.csv")
 
 app = Flask(__name__)
 CORS(app)
@@ -29,7 +26,7 @@ def scrapeData():
     #loop = asyncio.get_event_loop()
     #loop.run_until_complete(asyncio.run(main_amazon(topic)))
 
-    asyncio.run(main_amazon(topic))
+    asyncio.run(main_flipkart(topic))
 
     return "./Data/ScrappedData/"+topic+".json"
 
@@ -41,21 +38,20 @@ def GetRec():
     category = data['category']
 
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Flipkart_Grid"]
-    mycol = mydb["Products"]
-    products=list(mycol.find({"category":"Clothing"}))
+    mydb = myclient["mydb"]
+    mycol = mydb["Flipkart_Grid"]
+    products=list(mycol.find({"category": category}))
     
     product_cosine={}
     for product in products:
         encoding=np.array(product['encoding'])
         pid = product["pid"]
-        #print(encoding.shape)
         sim = get_similarity((p_name, category, description), encoding)
         if sim > 0.5:
             product_cosine[pid] = sim[0]
             print(product_cosine[pid])
 
-        if len(product_cosine) >= 10:
+        if len(product_cosine) >= 5:
             break
 
         
