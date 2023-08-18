@@ -39,8 +39,8 @@ def GetRec():
     category = data['category']
 
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["mydb"]
-    mycol = mydb["Flipkart_Grid"]
+    mydb = myclient["Flipkart_Grid"] #mydb
+    mycol = mydb["Products"] #Flipkart_Grid
     products=list(mycol.find({"category": category}))
     
     product_cosine={}
@@ -50,7 +50,6 @@ def GetRec():
         sim = get_similarity((p_name, category, description), encoding)
         if sim > 0.5:
             product_cosine[pid] = sim[0]
-            print(product_cosine[pid])
 
         if len(product_cosine) >= 5:
             break
@@ -71,8 +70,6 @@ def GetRec():
 
         #print(p_name, retail_price, discounted_price)
         res.append([p_name, retail_price, discounted_price,img,url,specs])
-
-    print(res)
 
     return res
 
