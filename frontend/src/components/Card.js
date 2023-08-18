@@ -1,13 +1,13 @@
 //import { Favorite } from "@material-ui/icons";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import "./Card.css";
 //import logo from "frontend/public/logo192.png";
 import { Button } from "@mui/material";
 
 import {Favorite} from '@mui/icons-material'
+import NikeShoeWithImages from "../pages/SingleProduct"
 
 const Card = (props) => {
-  const [index, setIndex] = useState(0);
   const [show, setShow] = useState(false);
 
   return (
@@ -30,7 +30,7 @@ const Card = (props) => {
           <span className="span3">56%</span>
         </div>
         <div className="card__size">
-          <Button>Open</Button>
+          <Button onClick={<NikeShoeWithImages p_name={props.p_name} price={props.price}/>}>Open</Button>
         </div>
       </div>
     </div>

@@ -168,7 +168,7 @@ const NikeShoeWithImagesRoot = styled.div`
   color: var(--color-black);
   font-family: var(--font-source-sans-pro);
 `;
-const NikeShoeWithImages = () => {
+const NikeShoeWithImages = (props) => {
   return (
     <NikeShoeWithImagesRoot>
       <Bg4>
@@ -187,12 +187,12 @@ const NikeShoeWithImages = () => {
       <Nike>NIKE</Nike>
       <AirMaxAxisContainer>
         <AirMaxAxisContainer1>
-          <AirMaxAxis>Air Max Axis Sneakers For Men (Black)</AirMaxAxis>
+          <AirMaxAxis>{props.p_name}</AirMaxAxis>
           <AirMaxAxis>Special price</AirMaxAxis>
           <AirMaxAxis>&nbsp;</AirMaxAxis>
           <P>₹5,047</P>
           <P>&nbsp;</P>
-          <AirMaxAxis>₹8,795</AirMaxAxis>
+          <AirMaxAxis>₹{props.price}</AirMaxAxis>
           <AirMaxAxis>42% off</AirMaxAxis>
           <AirMaxAxis>&nbsp;</AirMaxAxis>
           <AirMaxAxis>465 ratings and 39 reviews</AirMaxAxis>
