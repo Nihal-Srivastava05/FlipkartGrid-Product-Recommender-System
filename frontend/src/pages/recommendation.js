@@ -7,6 +7,7 @@ import myInitObject from "../components/global";
 const Recommendation = (props) => {
   const [data, setData] = useState({});
   const [dataReceived, setDataReceived] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const formData = {
     p_name: myInitObject.p_name,
@@ -37,6 +38,7 @@ const Recommendation = (props) => {
       // Handle the response from backend here
       .then((res) => {
         console.log(res.data);
+        setLoading(false);
         setData(res.data);
         setDataReceived(true);
       })
@@ -48,19 +50,28 @@ const Recommendation = (props) => {
   }, []);
 
   return (
-    <div>
-      <h1>Recommendation</h1>
-      {dataReceived &&
-        data.map((product) => {
-          return (
-            <Card
-              key={Math.random()}
-              p_name={product[0]}
-              price={product[1]}
-              image={product[3].slice(1, -1).split(",")[0].slice(1, -1)}
-            />
-          );
-        })}
+    <div className="container">
+      {loading ? (
+        <div className="loader-container">
+          <div className="spinner"></div>
+        </div>
+      ) : (
+        <div>
+          <h1>Recommendation</h1>
+
+          {dataReceived &&
+            data.map((product) => {
+              return (
+                <Card
+                  key={Math.random()}
+                  p_name={product[0]}
+                  price={product[1]}
+                  image={product[3].slice(1, -1).split(",")[0].slice(1, -1)}
+                />
+              );
+            })}
+        </div>
+      )}
     </div>
   );
 };

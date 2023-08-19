@@ -9,13 +9,14 @@ export default function Home() {
   const [name, setName] = useState("");
   const [dataReceived, setDataReceived] = useState(false);
   const [data, setData] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const onChangeHandler = (event) => {
     setName(event.target.value);
   };
 
   const onSubmitHandler = () => {
     console.log(name);
+    setLoading(true);
     const formData = { product: name };
     axios({
       // Endpoint to send files
@@ -31,6 +32,7 @@ export default function Home() {
     })
       // Handle the response from backend here
       .then((res) => {
+        setLoading(false);
         setData(res.data);
         setDataReceived(true);
       })
@@ -53,22 +55,28 @@ export default function Home() {
       <Button variant="contained" onClick={onSubmitHandler}>
         Submit
       </Button>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {dataReceived &&
-          data.map((product) => {
-            // console.log(product);
-            return (
-              <Card
-                key={Math.random()}
-                p_name={product.title}
-                price={product.price}
-                image={product.image}
-                description={product.description}
-                category={product.category}
-              />
-            );
-          })}
-      </div>
+      {loading ? (
+        <div className="loader-container">
+          <div className="spinner"></div>
+        </div>
+      ) : (
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {dataReceived &&
+            data.map((product) => {
+              // console.log(product);
+              return (
+                <Card
+                  key={Math.random()}
+                  p_name={product.title}
+                  price={product.price}
+                  image={product.image}
+                  description={product.description}
+                  category={product.category}
+                />
+              );
+            })}
+        </div>
+      )}
     </div>
   );
 }
