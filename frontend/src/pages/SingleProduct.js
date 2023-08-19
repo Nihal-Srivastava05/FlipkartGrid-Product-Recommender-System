@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import styled from "styled-components";
-import myInitObject from "../components/global"
+import myInitObject from "../components/global";
+import { useNavigate } from "react-router-dom";
 const Bg1Icon = styled.img`
   position: absolute;
   height: 100%;
@@ -170,23 +171,30 @@ const NikeShoeWithImagesRoot = styled.div`
 `;
 const NikeShoeWithImages = (props) => {
   console.log(props);
-  console.log(myInitObject)
+  console.log(myInitObject);
   //console.log(price);
-  return (  
+
+  const navigate = useNavigate();
+
+  const onClickHandler = () => {
+    navigate("/recommendation", { state: { props } });
+  };
+
+  return (
     <NikeShoeWithImagesRoot>
       <Bg4>
         <Bg1Icon alt="" src={"/images/bg-1@2x.png"} />
       </Bg4>
-      <NikeShoeWithImagesChild alt="" src={"/images/rectangle-8.svg"} />
+      {/* <NikeShoeWithImagesChild alt="" src={"/images/rectangle-8.svg"} />
       <NikeShoeWithImagesItem alt="" src={"/images/rectangle-6.svg"} />
-      <NikeShoeWithImagesInner alt="" src={"/images/rectangle-5.svg"} />
-      <Image4Icon alt="" src={"/images/logo192.png"} />
-      <Image7Icon alt="" src={"/images/logo192.png"} />
-      <Image5Icon alt="" src={"/images/logo192.png"} />
-      <RectangleIcon alt="" src={"/images/rectangle-8.svg"} />
-      <Image6Icon alt="" src={"/images/logo192.png"} />
-
-      <NikeShoeWithImagesChild1 alt="" src={"/images/rectangle-9.svg"} />
+      <NikeShoeWithImagesInner alt="" src={"/images/rectangle-5.svg"} /> */}
+      {/* <Image4Icon alt="" src={"/images/logo192.png"} /> */}
+      {/* <Image7Icon alt="" src={"/images/logo192.png"} /> */}
+      {/* <Image5Icon alt="" src={"/images/logo192.png"} /> */}
+      {/* <RectangleIcon alt="" src={"/images/rectangle-8.svg"} /> */}
+      {/* <Image6Icon alt="" src={"/images/logo192.png"} /> */}
+      <NikeShoeWithImagesChild1 alt="" src={myInitObject.image} />{" "}
+      {/*"/images/rectangle-9.svg"*/}
       {/* <Nike>{myInitObject.p_name}</Nike> */}
       <AirMaxAxisContainer>
         <AirMaxAxisContainer1>
@@ -204,7 +212,9 @@ const NikeShoeWithImages = (props) => {
       <HeartContainer>
         <HeartIcon alt="" src={"/images/heart.png"} />
       </HeartContainer>
-      <AddToWishlist>Add to wishlist</AddToWishlist>
+      <AddToWishlist>
+        <Button onClick={onClickHandler}>Get Recommendations</Button>
+      </AddToWishlist>
     </NikeShoeWithImagesRoot>
   );
 };

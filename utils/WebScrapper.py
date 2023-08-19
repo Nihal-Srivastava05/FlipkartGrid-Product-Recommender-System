@@ -65,7 +65,6 @@ async def get_details_flipkart(session, URL, HEADERS = ({'User-Agent': 'Mozilla/
     try:
         title = soup.find("span", attrs={'class':'B_NuCI'}).text.strip()
         data['title'] = title
-        #print("lalala")
     except:
         pass
 
@@ -83,7 +82,6 @@ async def get_details_flipkart(session, URL, HEADERS = ({'User-Agent': 'Mozilla/
     
     try:
         reviews = get_reviews_flipkart(soup)
-        # print(reviews)
         if(reviews != []):
             data['reviews'] = reviews
     except:
@@ -91,13 +89,18 @@ async def get_details_flipkart(session, URL, HEADERS = ({'User-Agent': 'Mozilla/
     
     try:
         img = soup.find('div', attrs={'class': 'CXW8mj _3nMexc'})
-        print(img)
         img1=img.find('img').attrs['src']
-        print(img1)
         data['image'] = img1
     except:
-        print("nope")
+        data['image'] = "./images/logo192.png"
         pass
+
+    try:
+        category = soup.find_all("a", attrs={'class': "_2whKao"})[1].text.strip()
+        data['category'] = category
+    except:
+        pass
+
     
     return data
 

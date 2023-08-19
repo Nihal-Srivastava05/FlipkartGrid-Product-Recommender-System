@@ -6,6 +6,20 @@ from sentence_transformers import SentenceTransformer
 model = SentenceTransformer("distilbert-base-nli-mean-tokens")
 encoder_model = tf.keras.models.load_model('./utils/models/encoder_64_512_50_flipkart')
 
+def get_category(category, categories):
+    max_score = -float('inf')
+    final_category = ""
+    enc_1 = model.encode(category)
+    for cat in categories:
+        enc_2 = model.encode(cat)
+        score = cosine_similarity(enc_1.reshape(1, -1), enc_2.reshape(1, -1))
+        if max_score < score:
+            max_score = score
+            final_category = cat
+
+    return final_category
+
+
 def get_similarity(product_1, encoded_vectors_2):
     name_embedding_1 = np.expand_dims(model.encode(product_1[0]), axis=0).reshape(1, 1, -1)
     category_embedding_1 = np.expand_dims(model.encode(product_1[1]), axis=0).reshape(1, 1, -1)

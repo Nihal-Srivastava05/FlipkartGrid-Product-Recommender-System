@@ -2,23 +2,24 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import Card from "../components/Card";
+import myInitObject from "../components/global";
 
 const Recommendation = (props) => {
   const [data, setData] = useState({});
   const [dataReceived, setDataReceived] = useState(false);
 
-  //   const formData = {
-  //     p_name: props.p_name,
-  //     description: props.description,
-  //     category: props.category,
-  //   };
-
   const formData = {
-    p_name: "Men Regular Fit Printed Spread Collar Casual Shirt",
-    description:
-      "High-quality FabricThe MILDIN Men Slim-fit formal shirt is made from high-quality cotton-blend fabric that comprises 60% cotton—making it ideal for wearing in the summer. Additionally, the shirt being slim fit helps you achieve a smart, professional look.",
-    category: "Clothing",
+    p_name: myInitObject.p_name,
+    description: myInitObject.description,
+    category: myInitObject.category,
   };
+
+  // const formData = {
+  //   p_name: "Men Regular Fit Printed Spread Collar Casual Shirt",
+  //   description:
+  //     "High-quality FabricThe MILDIN Men Slim-fit formal shirt is made from high-quality cotton-blend fabric that comprises 60% cotton—making it ideal for wearing in the summer. Additionally, the shirt being slim fit helps you achieve a smart, professional look.",
+  //   category: "Clothing",
+  // };
 
   useEffect(() => {
     axios({
@@ -35,6 +36,7 @@ const Recommendation = (props) => {
     })
       // Handle the response from backend here
       .then((res) => {
+        console.log(res.data);
         setData(res.data);
         setDataReceived(true);
       })

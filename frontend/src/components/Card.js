@@ -20,8 +20,11 @@ const Card = (props) => {
 
   const onClickHandler = () => {
     myInitObject.p_name = props.p_name
-    myInitObject.description = props.p_name
     myInitObject.price = props.price
+    myInitObject.image = props.image
+    myInitObject.description = props.description
+    myInitObject.category = props.category
+    
     Object.freeze(myInitObject)
     navigate(
       "/singleproduct",
