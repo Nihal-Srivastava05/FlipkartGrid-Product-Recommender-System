@@ -62,6 +62,7 @@ async def get_details_flipkart(session, URL, HEADERS = ({'User-Agent': 'Mozilla/
         soup = bs4.BeautifulSoup(content, "lxml")
 
     data = {}
+    title = "#####"
     try:
         title = soup.find("span", attrs={'class':'B_NuCI'}).text.strip()
         data['title'] = title
@@ -78,6 +79,7 @@ async def get_details_flipkart(session, URL, HEADERS = ({'User-Agent': 'Mozilla/
         description = soup.find('div', attrs={'class': '_1mXcCf RmoJUa'}).text.strip()
         data['description'] = description
     except:
+        data['description'] = title
         pass
     
     try:

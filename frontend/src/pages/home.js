@@ -2,8 +2,29 @@ import { React, useState } from "react";
 import { TextField, Button } from "@mui/material";
 
 import axios from "axios";
-
+import styled from "styled-components";
 import Card from "../components/Card";
+
+const Bg1Icon = styled.img`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0%;
+  right: -4.39%;
+  bottom: 0%;
+  left: 4.39%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+`;
+const Bg4 = styled.div`
+  position: absolute;
+  top: 0px;
+  left: -60px;
+  width: 100%;
+  height: 832px;
+`;
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -44,17 +65,33 @@ export default function Home() {
   };
   return (
     <div>
-      <h1>Home</h1>
-      <TextField
-        id="outlined-basic"
-        label="Search"
-        variant="filled"
-        size="large"
-        onChange={onChangeHandler}
-      />
-      <Button variant="contained" onClick={onSubmitHandler}>
-        Submit
-      </Button>
+      <h1 style={{ textAlign: "center" }}>Home</h1>
+      <Bg4>
+        <Bg1Icon alt="" src={"/images/bg-1@2x.png"} />
+      </Bg4>
+      <div
+        style={{
+          textAlign: "center",
+          alignContent: "center",
+          justifyContent: "center",
+        }}
+      >
+        <TextField
+          id="outlined-basic"
+          label="Search"
+          variant="filled"
+          size="large"
+          onChange={onChangeHandler}
+          style={{ width: "80%" }}
+        />
+        <Button
+          variant="contained"
+          onClick={onSubmitHandler}
+          style={{ height: "100%", padding: "1%" }}
+        >
+          Submit
+        </Button>
+      </div>
       {loading ? (
         <div className="loader-container">
           <div className="spinner"></div>

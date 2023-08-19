@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import styled from "styled-components";
 import myInitObject from "../components/global";
 import { useNavigate } from "react-router-dom";
@@ -98,19 +97,17 @@ const NikeShoeWithImagesChild1 = styled.img`
   height: 652px;
 `;
 const Nike = styled.div`
-  position: absolute;
-  top: 136px;
-  left: 683px;
-  font-size: 48px;
+  font-size: 28px;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 179px;
-  height: 79px;
 `;
 const AirMaxAxis = styled.p`
   margin: 0;
+  font-size: var(--font-size-18xl);
+`;
+
+const AirMaxAxis1 = styled.p`
+  margin: 0;
+  font-size: 25px;
 `;
 const P = styled.p`
   margin: 0;
@@ -123,7 +120,7 @@ const AirMaxAxisContainer1 = styled.span`
 const AirMaxAxisContainer = styled.div`
   position: absolute;
   top: 247px;
-  right: 14px;
+  right: 150px;
   font-weight: 600;
   text-align: left;
   display: flex;
@@ -169,6 +166,16 @@ const NikeShoeWithImagesRoot = styled.div`
   color: var(--color-black);
   font-family: var(--font-source-sans-pro);
 `;
+const Button = styled.button`
+  background-color: green;
+  color: black;
+  font-size: 20px;
+  padding: 10px 60px;
+  border-radius: 5px;
+  margin-top: 15%;
+  cursor: pointer;
+`;
+
 const NikeShoeWithImages = (props) => {
   console.log(props);
   console.log(myInitObject);
@@ -198,13 +205,15 @@ const NikeShoeWithImages = (props) => {
       {/* <Nike>{myInitObject.p_name}</Nike> */}
       <AirMaxAxisContainer>
         <AirMaxAxisContainer1>
-          <AirMaxAxis>{myInitObject.p_name}</AirMaxAxis>
+          <Nike>{myInitObject.p_name}</Nike>
+          <AirMaxAxis>&nbsp;</AirMaxAxis>
           <AirMaxAxis>Special price</AirMaxAxis>
           <AirMaxAxis>&nbsp;</AirMaxAxis>
-          <P>₹5,047</P>
+          <P>{myInitObject.price}</P>
           <P>&nbsp;</P>
-          <AirMaxAxis>₹{myInitObject.price}</AirMaxAxis>
-          <AirMaxAxis>42% off</AirMaxAxis>
+          <AirMaxAxis>Actual price</AirMaxAxis>
+          <AirMaxAxis>{myInitObject.price}</AirMaxAxis>
+          <AirMaxAxis>no offer%</AirMaxAxis>
           <AirMaxAxis>&nbsp;</AirMaxAxis>
           <AirMaxAxis>{myInitObject.description}</AirMaxAxis>
         </AirMaxAxisContainer1>
