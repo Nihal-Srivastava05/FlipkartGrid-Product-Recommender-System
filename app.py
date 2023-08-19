@@ -37,8 +37,8 @@ def GetRec():
     scrapped_category = data['category']
 
     myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Flipkart_Grid"] #mydb Flipkart_Grid
-    mycol = mydb["Products"] #Flipkart_Grid Products
+    mydb = myclient["mydb"] #mydb Flipkart_Grid
+    mycol = mydb["Flipkart_Grid"] #Flipkart_Grid Products
 
     categories = mycol.distinct("category")
     category = get_category(scrapped_category, categories)

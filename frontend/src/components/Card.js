@@ -2,17 +2,19 @@
 import React, { useState } from "react";
 import "./Card.css";
 //import logo from "frontend/public/logo192.png";
-import { Button } from "@mui/material";
+// import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-import { Favorite } from "@mui/icons-material";
-import NikeShoeWithImages from "../pages/SingleProduct";
-import { createGlobalState } from "react-hooks-global-state";
-
+// import { Favorite } from "@mui/icons-material";
 import myInitObject from "./global";
 
-const initialState = { name: 0, price: 0 };
-const { useGlobalState } = createGlobalState(initialState);
+import { Card as MuiCard } from "@mui/material";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { Button, CardActionArea, CardActions } from "@mui/material";
+import IconButton from '@mui/material/IconButton';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Card = (props) => {
   const [show, setShow] = useState(false);
@@ -30,31 +32,57 @@ const Card = (props) => {
   };
 
   return (
-    <div className="card">
-      <div className="card__heart">
-        <Favorite />
-      </div>
-      <div className="card__image">
-        <img
-          onMouseOver={() => setShow(true)}
-          onMouseLeave={() => setShow(false)}
-          src={`${props.image}`}
-          alt="images"
+    <MuiCard sx={{ maxWidth: 250, minWidth: 250, margin: 2 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={props.image}
+          alt="green iguana"
         />
-      </div>
-      <div className="productDet">
-        <div className="card__details">
-          <p className="title">{props.p_name}</p>
-          <p>{props.category}</p>
-          <span className="span1">{props.price}</span>
-          <span className="span2">₹200</span>
-          <span className="span3">56%</span>
-        </div>
-        <div className="card__size">
-          <Button onClick={onClickHandler}>Open</Button>
-        </div>
-      </div>
-    </div>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {props.p_name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            ₹{props.price}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <IconButton aria-label="add to favorites">
+          <FavoriteIcon />
+        </IconButton>
+        <Button size="small" color="primary" onClick={onClickHandler}>
+          Open
+        </Button>
+      </CardActions>
+    </MuiCard>
+    // <div className="card">
+    //   <div className="card__heart">
+    //     <Favorite />
+    //   </div>
+    //   <div className="card__image">
+    //     <img
+    //       onMouseOver={() => setShow(true)}
+    //       onMouseLeave={() => setShow(false)}
+    //       src={`${props.image}`}
+    //       alt="images"
+    //     />
+    //   </div>
+    //   <div className="productDet">
+    //     <div className="card__details">
+    //       <p className="title">{props.p_name}</p>
+    //       <p>{props.category}</p>
+    //       <span className="span1">{props.price}</span>
+    //       <span className="span2">₹200</span>
+    //       <span className="span3">56%</span>
+    //     </div>
+    //     <div className="card__size">
+    //       <Button onClick={onClickHandler}>Open</Button>
+    //     </div>
+    //   </div>
+    // </div>
   );
 };
 

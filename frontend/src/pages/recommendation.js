@@ -58,18 +58,25 @@ const Recommendation = (props) => {
       ) : (
         <div>
           <h1>Recommendation</h1>
-
-          {dataReceived &&
-            data.map((product) => {
-              return (
-                <Card
-                  key={Math.random()}
-                  p_name={product[0]}
-                  price={product[1]}
-                  image={product[3].slice(1, -1).split(",")[0].slice(1, -1)}
-                />
-              );
-            })}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+            }}
+          >
+            {dataReceived &&
+              data.map((product) => {
+                return (
+                  <Card
+                    key={Math.random()}
+                    p_name={product[0]}
+                    price={product[1]}
+                    image={product[3].slice(1, -1).split(",")[0].slice(1, -1)}
+                  />
+                );
+              })}
+          </div>
         </div>
       )}
     </div>

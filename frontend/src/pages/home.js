@@ -4,6 +4,7 @@ import { TextField, Button } from "@mui/material";
 import axios from "axios";
 import styled from "styled-components";
 import Card from "../components/Card";
+import { Grid } from "@mui/material";
 
 const Bg1Icon = styled.img`
   position: absolute;
@@ -97,21 +98,20 @@ export default function Home() {
           <div className="spinner"></div>
         </div>
       ) : (
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {dataReceived &&
-            data.map((product) => {
-              // console.log(product);
-              return (
-                <Card
-                  key={Math.random()}
-                  p_name={product.title}
-                  price={product.price}
-                  image={product.image}
-                  description={product.description}
-                  category={product.category}
-                />
-              );
-            })}
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent:'center' }}>
+              {dataReceived &&
+                data.map((product) => {
+                  return (
+                    <Card
+                      key={Math.random()}
+                      p_name={product.title}
+                      price={product.price}
+                      image={product.image}
+                      description={product.description}
+                      category={product.category}
+                    />
+                  );
+                })}
         </div>
       )}
     </div>

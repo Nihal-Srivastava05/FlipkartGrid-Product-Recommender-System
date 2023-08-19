@@ -3,14 +3,19 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 
+import re
+
 model = SentenceTransformer("distilbert-base-nli-mean-tokens")
 encoder_model = tf.keras.models.load_model('./utils/models/encoder_64_512_50_flipkart')
 
 def get_category(category, categories):
     max_score = -float('inf')
     final_category = ""
+    regex = r"[^a-zA-Z0-9 ]+"
+    category = re.sub(regex, "", category)
     enc_1 = model.encode(category)
     for cat in categories:
+        cat = re.sub(regex, "", cat)
         enc_2 = model.encode(cat)
         score = cosine_similarity(enc_1.reshape(1, -1), enc_2.reshape(1, -1))
         if max_score < score:
