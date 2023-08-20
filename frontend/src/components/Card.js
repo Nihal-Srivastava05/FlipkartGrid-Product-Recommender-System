@@ -45,7 +45,7 @@ const Card = (props) => {
             {props.p_name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            ₹{props.price}
+            {props.price}
           </Typography>
         </CardContent>
       </CardActionArea>

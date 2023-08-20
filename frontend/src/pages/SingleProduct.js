@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import myInitObject from "../components/global";
 import { useNavigate } from "react-router-dom";
+
+import { Button } from "@mui/material";
+
 const Bg1Icon = styled.img`
   position: absolute;
   height: 100%;
@@ -166,15 +169,15 @@ const NikeShoeWithImagesRoot = styled.div`
   color: var(--color-black);
   font-family: var(--font-source-sans-pro);
 `;
-const Button = styled.button`
-  background-color: green;
-  color: black;
-  font-size: 20px;
-  padding: 10px 60px;
-  border-radius: 5px;
-  margin-top: 15%;
-  cursor: pointer;
-`;
+// const Button = styled.button`
+//   background-color: green;
+//   color: black;
+//   font-size: 20px;
+//   padding: 10px 60px;
+//   border-radius: 5px;
+//   margin-top: 15%;
+//   cursor: pointer;
+// `;
 
 const NikeShoeWithImages = (props) => {
   console.log(props);
@@ -216,14 +219,12 @@ const NikeShoeWithImages = (props) => {
           <AirMaxAxis>no offer%</AirMaxAxis>
           <AirMaxAxis>&nbsp;</AirMaxAxis>
           <AirMaxAxis>{myInitObject.description}</AirMaxAxis>
+          <Button variant="contained" color="success" onClick={onClickHandler} style={{marginTop: "5%"}}>
+            Get Recommendations
+          </Button>
         </AirMaxAxisContainer1>
       </AirMaxAxisContainer>
-      <HeartContainer>
-        <HeartIcon alt="" src={"/images/heart.png"} />
-      </HeartContainer>
-      <AddToWishlist>
-        <Button onClick={onClickHandler}>Get Recommendations</Button>
-      </AddToWishlist>
+      <AddToWishlist></AddToWishlist>
     </NikeShoeWithImagesRoot>
   );
 };

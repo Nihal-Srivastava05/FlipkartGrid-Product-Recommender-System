@@ -14,12 +14,10 @@ def get_flipkart_urls(productName, HEADERS = ({'User-Agent': 'Mozilla/5.0 (X11; 
     productName = productName.replace(' ', '%20')
     try:
         webpage = requests.get("https://www.flipkart.com/search?q="+productName, headers=HEADERS)
-        #print(webpage.content) no error
         soup = bs4.BeautifulSoup(webpage.content, "lxml")
     except:
         return []
     data = soup.find_all("div",class_="_13oc-S")
-    #data=soup.select('#_13oc-S > a')
     links = set()
     for tag in data:
         aTags = tag.find_all("div")
@@ -30,26 +28,12 @@ def get_flipkart_urls(productName, HEADERS = ({'User-Agent': 'Mozilla/5.0 (X11; 
                 if af != []:
                     links.add("https://www.flipkart.com"+af[0].attrs["href"])
             
-   
-    #print("data",data)
-    # for d in data:
-    #     #print(type(d))
-    #     l = d.attrs["href"]
-    #     #print(l)
-    #     regexp = re.compile(r'[a-zA-Z0-9-]*\/dp\/')
-    #     # if(regexp.search(l)):
-    #     #print("lalala")
-    #     links.add("https://www.flipkart.com"+d["href"])
-    #print(list(links))
     return list(links)
 
 def get_reviews_flipkart(soup):
     data_str = []  
     for item in soup.find_all("p", class_="_2-N8zT"):
         data_str.append(item.get_text())
-        #print("lalala")
-    # result = data_str.split("\n")
-    #print(data_str)
     result = list(filter(None, data_str))
     if(result == ['']):
         return []
@@ -106,8 +90,6 @@ async def get_details_flipkart(session, URL, HEADERS = ({'User-Agent': 'Mozilla/
     
     return data
 
-
-
 async def main_flipkart(productName):
     start_time = time.time()
     connector = aiohttp.TCPConnector(limit=50, force_close=True)
@@ -124,6 +106,22 @@ async def main_flipkart(productName):
     json_object = json.dumps(results, indent=4)
     with open("./data/scrappedData/"+productName+".json", "w") as outfile:
     	outfile.write(json_object)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ########## ASK LALIA ##########
 

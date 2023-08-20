@@ -43,7 +43,9 @@ def GetRec():
     categories = mycol.distinct("category")
     category = get_category(scrapped_category, categories)
     products=list(mycol.find({"category": category}))
-    
+
+    print(scrapped_category, category, len(products))
+
     product_cosine={}
     count = 0
     for product in products:
@@ -69,6 +71,6 @@ def GetRec():
         url=item.product_url.iloc[0]
         specs=item.product_specifications.iloc[0]
 
-        res.append([p_name, retail_price, discounted_price,img,url,specs])
+        res.append([p_name, retail_price, discounted_price, img, url, specs])
 
     return res

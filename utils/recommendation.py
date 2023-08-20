@@ -15,12 +15,13 @@ def get_category(category, categories):
     category = re.sub(regex, "", category)
     enc_1 = model.encode(category)
     for cat in categories:
+        ORIGINAL_CAT = cat
         cat = re.sub(regex, "", cat)
         enc_2 = model.encode(cat)
         score = cosine_similarity(enc_1.reshape(1, -1), enc_2.reshape(1, -1))
         if max_score < score:
             max_score = score
-            final_category = cat
+            final_category = ORIGINAL_CAT
 
     return final_category
 
@@ -30,13 +31,8 @@ def get_similarity(product_1, encoded_vectors_2):
     category_embedding_1 = np.expand_dims(model.encode(product_1[1]), axis=0).reshape(1, 1, -1)
     description_embedding_1 = np.expand_dims(model.encode(product_1[2]), axis=0).reshape(1, 1, -1)
 
-    # name_embedding_2 = np.expand_dims(model.encode(product_2[0]), axis=0).reshape(1, 1, -1)
-    # category_embedding_2 = np.expand_dims(model.encode(product_2[1]), axis=0).reshape(1, 1, -1)
-    # description_embedding_2 = np.expand_dims(model.encode(product_2[2]), axis=0).reshape(1, 1, -1)
-
     encoded_vectors_1 = encoder_model.predict([name_embedding_1, category_embedding_1, description_embedding_1], verbose=0)
-    #encoded_vectors_2 = encoder_model.predict([name_embedding_2, category_embedding_2, description_embedding_2])
-
+    
     return cosine_similarity(encoded_vectors_1.reshape(1, -1), encoded_vectors_2.reshape(1, -1))[0]
 
 if __name__ == "__main__":
